@@ -4,7 +4,7 @@ var ballside=true;
 var playerleft=0;
 var playerright=0;
 var no=0;
-function gameOpen()
+function gameOpen()             //this function is used to inialize the game variables.
 {
     gameArea.begin();
     leftPaddle =new createParts(0,100,10,100,"#113aff");
@@ -13,11 +13,11 @@ function gameOpen()
     leftPaddle.update();
     rightPaddle.update();
     ball.dx=2;
-    // ball.dy=1;
+    ball.dy=1;
     ball.update();
 }
 
-var gameArea={
+var gameArea={              //this object creates the game area and take cares of update and other things.
     canvas:document.createElement("canvas"),
     begin:function(){
         this.canvas.height=400;
@@ -40,7 +40,7 @@ var gameArea={
         clearInterval(this.interval);
     }
 }
-function createParts(x,y,w,h,color,type)
+function createParts(x,y,w,h,color,type)            //creates components for the game.
 {
     this.x=x;
     this.y=y;
@@ -68,7 +68,7 @@ function createParts(x,y,w,h,color,type)
         }
     }
 }
-function updategame() {
+function updategame() {             //this function is called to update the game.
     ctx = gameArea.context;
     gameArea.clear();
     gameArea.frameno++;
@@ -124,7 +124,7 @@ function updategame() {
         ballside=true;}
     if((ball.y+ball.width)>=gameArea.canvas.height||ball.y-ball.width<=0)
         ball.dy=(-1)*ball.dy;
-    if((ball.x-ball.width<=0)||(ball.x+ball.width>=gameArea.canvas.width))
+    if((ball.x-ball.width<=0)||(ball.x+ball.width>=gameArea.canvas.width))  //this  if becomes true when game ends.
     {   if(playerleft>playerright&&no==0)
         document.getElementById("leftscore").innerHTML="Player1 wins!!!";
     else if(playerleft<playerright&&no==0)
@@ -136,7 +136,7 @@ function updategame() {
         playerleft=playerright=0;
 
 
-        if (gameArea.keys && gameArea.keys[32]) {
+        if (gameArea.keys && gameArea.keys[32]) {     //this if is to restart the game.
             no=0;
             ball.x=500;
             ball.y=Math.floor(Math.random()*(200)+100);
@@ -147,9 +147,9 @@ function updategame() {
             ball.update();
             setTimeout(function(){
                 if(right==false)
-                { ball.dx=2;ball.dy=0;right=true;ballside=true;}
+                { ball.dx=2;ball.dy=1;right=true;ballside=true;}
                 else {
-                    ball.dx=-2;ball.dy=0;right=false;ballside=false;
+                    ball.dx=-2;ball.dy=-1;right=false;ballside=false;
                 }},2000);
         }
 
